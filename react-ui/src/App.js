@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
-import { BrowserRouter as Router, Routes, NavLink, Navigate, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Navigate, Route } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Home from "./pages/Home";
 import Content from "./pages/Content";

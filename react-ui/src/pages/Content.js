@@ -9,17 +9,20 @@ import { userLogout, verifyTokenEnd } from "./../actions/authActions";
 import { setAuthToken } from './../services/auth';
 import { getUserListService } from './../services/user';
 
+const API_URL = 'http://localhost:5000';
+
 function Content() {
   const dispatch = useDispatch();
   const authObj = useSelector(state => state.auth);
   const { user, token, expiredAt } = authObj;
+  
 
   const [userList, setUserList] = useState([]);
   const [argument, setArgument] = useState("");
 
   //Argument Form
   const sendArgument = async () => {
-    await axios.post("/user/updateArgument",  {argument, user});
+    await axios.post(`${API_URL}/user/updateArgument`,  {argument, user});
     getUserList();
     setArgument("")
   }
@@ -81,12 +84,12 @@ function Node(props) {
   const id = props.id
 
   const sendSublist = async () => {
-    await axios.post("/user/updateSublist",  {sublist, user, id, fatherId});
+    await axios.post(`${API_URL}/user/updateSublist`,  {sublist, user, id, fatherId});
     getUserList();
     setSublist("")
   }
   const Delete = async () => {
-    await axios.post("/user/Delete",  {user, id});
+    await axios.post(`${API_URL}/user/Delete`,  {user, id});
     getUserList();
   }
 
@@ -141,12 +144,12 @@ function Arguments(props) {
   const [list, setList] = useState("");
   const id = props.id
   const sendList = async () => {
-    await axios.post("/user/updateList",  {list, user, id});
+    await axios.post(`${API_URL}/user/updateList`,  {list, user, id});
     getUserList();
     setList("")
   }
   const Delete = async () => {
-    await axios.post("/user/Delete",  {user, id});
+    await axios.post(`${API_URL}/user/Delete`,  {user, id});
     getUserList();
   }
 
