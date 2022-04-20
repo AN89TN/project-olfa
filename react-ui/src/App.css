@@ -1,38 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=BioRhyme:wght@300&display=swap');
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  min-height: 90vh;
+  background-color: #556E53;
+  font-family: 'BioRhyme:wght@300';
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  text-align: center;
+  background-color: #152A38;
+  background-image: url(../public/OLFA.svg);
+  background-repeat: no-repeat;
+  background-position: 20px 20px;
+  background-size: 150px;
+  min-height: 85vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #D1D4C9;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 1);
+  padding-top: 70px;
+
+  text-shadow: #03506F 2px 2px;
+
 }
 
-.App-link {
-  color: #61dafb;
+.App-content {
+  background-color: #152A38;
+  min-height: 82vh;
+  text-align: center;
+  font-size: calc(10px + 2vmin);
+  padding-top: 100px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 1);
+  color: #D1D4C9;
+  text-shadow: #03506F 3px 3px;
+  background-image: url(../public/OLFA.svg);
+  background-repeat: no-repeat;
+  background-position: 20px 20px;
+  background-size: 150px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.New-argument {
+  font-size: 20px;
+}
+
+.Welcome {
+  font-size: 30px;
+}
+
+.main-container {
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.table {
+  align-self: start;
+  width: fit-content;
+  height: fit-content;
+  margin: 20px auto 20px auto;
+  background: #FFE3DE;
+  padding: 15px;
+  border-radius: 7px;
+  box-shadow: 0 2px 5px #A3DDCB;
+  overflow: scroll;
+  overflow-y: visible;
+  white-space: pre-wrap;
+  color: #152A38;
+  font-size: 15px;
+  text-align: left;
+  text-shadow: none;
+}
+
+.table-header {
+  color: #152A38;
+  text-shadow: #556E53 1px 1px 2px;
+  text-align: center;
+  margin-bottom: 40px;
+  font-weight: bolder;
+  font-size: 22px;
+}
+
+.List-container {
+  font-size: 18px;
+  
+}
+
+.List-cmdadd {
+  background-color: #FFE3DE;
+  margin-left: 15px;
+  border-radius: 50px;
+  color: #152A38;
+  text-align: center;
+  border: 1px solid #03506F;
+}
+
+.List-cmddel {
+  background-color: #FFE3DE;
+  border-radius: 50px;
+  color: #152A38;
+  text-align: center;
+  border: 1px solid #03506F;
+}
+
+.List-cmddel:disabled, .List-cmdadd:disabled {
+  background-color: #03506F;
+}
+
+.List-cmddel:hover:not(:disabled), .List-cmdadd:hover:not(:disabled) {
+  background-color: #556E53;
+}
+
+.table-footer {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.Text-input {
+  border-radius: 50px;
+}
+
+.Footer {
+  text-align: center;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  color: #152A38;
+}
+
+.btn {
+  border: solid 1px #A3DDCB;
+  width: 80px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #A3DDCB;
+  cursor: pointer;
+  margin: 20px;
+  height: 30px;
+  text-align:center;
+  background-size: 300% 100%;
+  border-radius: 10px;
+  transition: all .5s ease-in-out;
+  background-image: linear-gradient(
+    to right,
+    #152A38,
+    #556E53,
+    #556E53,
+    #152A38
+    
+  );
+}
+
+.btn:hover {
+  background-position: 100% 0;
+  transition: all .5s ease-in-out;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.input-form-group {
+  margin-bottom: 1px;
+  position: relative;
+  width: 80%;
+  text-shadow: none;
+}
+
+.form-input-underlined > input {
+  background-color: #152A38;
+	border-radius: 10px;
+	width: 100%;
+	height: 30px;
+  color: #D1D4C9;
+	font-size: 15px;
+	padding-left: 30px;
+	line-height: 100%;
+	padding-top: 15px;
+  border: 2px solid #A3DDCB;
+}
+
+.form-input-label {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	color: #556E53;
+	transition: top .1s;
+  font-size: 20px;
+  text-shadow: #03506F 1px 1px;
+}
+
+.form-input-underlined > input:focus + .form-input-label,
+.form-input-underlined > input:valid + .form-input-label {
+	top: 0;
+	font-size: 15px;
+}
+
+.form-input-underlined > input:focus + .form-input-label {
+	color: #D1D4C9;
+  text-shadow: #556E53 1px 1px;
+}
+
+.form-input-underlined > input:focus {
+	outline: none;
 }

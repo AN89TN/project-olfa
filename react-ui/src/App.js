@@ -1,52 +1,45 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useCallback } from 'react';
+import { BrowserRouter as Router, Routes, NavLink, Navigate, Route } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import Home from "./pages/Home";
+import Content from "./pages/Content";
+import Footer from "./pages/Footer";
 import './App.css';
+import { verifyTokenAsync } from './asyncActions/authAsyncActions';
 
 function App() {
-  const [message, setMessage] = useState(null);
-  const [isFetching, setIsFetching] = useState(false);
-  const [url, setUrl] = useState('/api');
-  
-  const fetchData = useCallback(() => {
-    fetch(url)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`status ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(json => {
-        setMessage(json.message);
-        setIsFetching(false);
-      }).catch(e => {
-        setMessage(`API call failed: ${e}`);
-        setIsFetching(false);
-      })
-  }, [url]);
+  const authObj = useSelector(state => state.auth);
+  const dispatch = useDispatch();
+  const newLocal = useCallback(() => {
+  }, []);
+  const verifyToken = newLocal;
 
+  const { authLoading, isAuthenticated } = authObj;
+
+  // verify token on app load
   useEffect(() => {
-    setIsFetching(true);
-    fetchData();
-  }, [fetchData]);
+    dispatch(verifyTokenAsync());
+  }, [dispatch, verifyToken]);
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>{'« '}<strong>
-          {isFetching
-            ? 'Fetching message from API'
-            : message}
-        </strong>{' »'}</p>
-        <p>The project maybe goes here:</p>
-        <>
-        <button onClick={() => {setUrl("/app")}}>press me</button>
-        </>
-        <>
-        <button onClick={() => {setUrl("/api")}}>press me</button>
-        </>
-      </header>
+  // checking authentication
+  if (authLoading) {
+    return <div className="content">Checking Authentication...</div>
+  }
+  
+
+return (
+  <div className="App">
+    <Router>
+      <Routes>
+        <Route path="/home" element={<Home />} isAuthenticated={isAuthenticated} />
+        <Route path="/content" element={isAuthenticated ? <Content /> : <Navigate replace to='/home'/> } />
+        <Route path="/*" element={<Navigate replace to={isAuthenticated ? '/content' : '/home'} />} />
+      </Routes>
+        <Footer />
+
+    </Router>
     </div>
   );
-
 }
 
 export default App;
