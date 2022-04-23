@@ -217,7 +217,7 @@ app.post("/user/updateArgument", authMiddleware, function (req, res){
   newArgument = {
     id: idrng,
     listName: argument,
-    mainNode: []
+    node: []
   };
 userList[index].data.unshift(newArgument);
 
@@ -239,7 +239,7 @@ app.post("/user/updateList", authMiddleware, function (req, res){
     node: []
   };
 
-userList[index].data[index2].mainNode.push(newList);
+userList[index].data[index2].node.push(newList);
 return handleResponse(req, res, 200)
 });
 
@@ -251,21 +251,19 @@ app.post("/user/updateSublist", authMiddleware, function (req, res){
   const newId = req.body.id
   const index = userList.findIndex(x => x.username === user);
   const index2 = userList[index].data.findIndex(x => x.id === id)
-  const array = userList[index].data[index2].mainNode
+  const array = userList[index].data[index2].node
   const idrng = Math.floor(Math.random() * 1000000000000); //change it for DB id
   newSublist = {
         id: idrng,
         list: sublist,
-        isActive: false,
-        node: []
+        isActive: false
   };
 
 function findUpdate(array, id) {
   newSublist = {
     id: idrng,
     list: sublist,
-    isActive: false,
-    node: []
+    isActive: false
 };
   array.forEach(function(elem) {
     if (elem.id === id) {

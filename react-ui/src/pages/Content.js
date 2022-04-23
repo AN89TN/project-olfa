@@ -115,25 +115,28 @@ return(
         <li key={props.id}>
         <input type="checkbox" onChange={() => toggleDelete(!showDelete)} defaultChecked={props.isActive} />
         <label>{props.value}</label>
+        { nodes ?
         <input className='List-cmdadd' type="button" onClick={() => togglePanel(!showPanel)} value="⚙️" />
+        : <input className='List-cmdadd' type="button" onClick={Delete} disabled={showDelete === false} value="❌" /> }
+        { nodes ?
+          <>
         <br/>
         {showPanel && (
         
           <form onClick={(e) => e.preventDefault()}>
-          <input className='Text-input' type="text" value={sublist} onChange={(e) => setSublist(e.target.value)} placeholder= "Enter New List" maxLength="50" required />
-          <input className='List-cmdadd' type="submit" onClick={sendSublist} value="✒️" disabled={sublist === ""} />
+          <input className='Text-input' type="text" value={sublist} onChange={(e) => setSublist(e.target.value)} placeholder= "Enter New List" maxLength="150" required />          
+          <input className='List-cmdadd' type="submit" onClick={sendSublist} value="✒️" disabled={sublist === ""} />                    
           <input className='List-cmddel' type="button" onClick={Delete} disabled={showDelete === false} value="❌" />
           </form>
           
         )}
-        </li>
-
-        { nodes ?
-          <ul>{nodes}</ul>
+        </>
         : null }
-
-
-      
+        </li>
+        <br/>
+        { nodes ?
+        <ul>{nodes}</ul>
+          : null }
       </div>
       );
     
@@ -142,6 +145,7 @@ return(
 //get your argument box
 function Arguments(props) {
   const [list, setList] = useState("");
+  const [showDeleteA, toggleDeleteA] = useState(false)
   const id = props.id
   const sendList = async () => {
     await axios.post(`${API_URL}/user/updateList`,  {list, user, id});
@@ -161,7 +165,7 @@ function Arguments(props) {
         <br />
         <br />
         <form onClick={(e) => e.preventDefault()}>
-        <input className='Text-input' type="text" value={list} onChange={(e) => setList(e.target.value)} placeholder= "Enter New List" maxLength="50" required />
+        <input className='Text-input' type="text" value={list} onChange={(e) => setList(e.target.value)} placeholder= "Enter New List" maxLength="150" required />
         <input className='Text-input' type="submit" disabled={list === ""} onClick={sendList} value="Add a New Point" />
         </form>
         </div>
@@ -180,8 +184,17 @@ function Arguments(props) {
         )})}  
         </ul>
         <div className='table-footer'>
-        <input className='List-cmddel' type="button" onClick={Delete} value="❌" />
-        
+        <label className="label">
+        <div className="toggle">
+        <input className="toggle-state" type="checkbox" onClick={() => toggleDeleteA(!showDeleteA)} name="check" value="check" />
+        <div className="indicator"></div>
+        </div>
+        <div className="label-text">Delete</div>
+        </label>
+        <br/>
+        {showDeleteA && (
+        <input className='List-cmddel' type="button" disabled={showDeleteA === false} onClick={Delete} value="❌" />
+        )}
         </div>
         </div>
       );
@@ -213,7 +226,7 @@ Set your own Arguments:
           key={argument.id}
           id={argument.id}
           value={argument.listName}
-          children={argument.mainNode}
+          children={argument.node}
           />
 
       );})}
