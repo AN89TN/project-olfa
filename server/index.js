@@ -4,6 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const mongoose = require ('mongoose');
  
 const {
   refreshTokens, COOKIE_OPTIONS, generateToken, generateRefreshToken,
@@ -12,7 +13,20 @@ const {
  
 const app = express();
 const port = process.env.PORT || 5000;
- 
+
+
+mongoose.connect("mongodb://localhost:27017/olfaDB", {useNewUrlParser: true, useUnifiedTopology: true});
+
+const Schema = {
+    userId: String,
+    password: String,
+    name: String,
+    username: String,
+    isAdmin: String,
+    data: Array
+};
+
+const Data = mongoose.model("datas", Schema);
 // list of the users to be consider as a database for example
 const userList = []
 

@@ -19,6 +19,7 @@ function Content() {
 
   const [userList, setUserList] = useState([]);
   const [argument, setArgument] = useState("");
+  const [showEdit, toggleEdit] = useState(true)
 
   //Argument Form
   const sendArgument = async () => {
@@ -115,6 +116,8 @@ return(
         <li key={props.id}>
         <input type="checkbox" onChange={() => toggleDelete(!showDelete)} defaultChecked={props.isActive} />
         <label>{props.value}</label>
+        {showEdit && (
+          <>
         { nodes ?
         <input className='List-cmdadd' type="button" onClick={() => togglePanel(!showPanel)} value="⚙️" />
         : <input className='List-cmdadd' type="button" onClick={Delete} disabled={showDelete === false} value="❌" /> }
@@ -132,6 +135,8 @@ return(
         )}
         </>
         : null }
+        </>
+        )}
         </li>
         <br/>
         { nodes ?
@@ -146,6 +151,7 @@ return(
 function Arguments(props) {
   const [list, setList] = useState("");
   const [showDeleteA, toggleDeleteA] = useState(false)
+
   const id = props.id
   const sendList = async () => {
     await axios.post(`${API_URL}/user/updateList`,  {list, user, id});
@@ -159,6 +165,11 @@ function Arguments(props) {
 
       return (
         <div className="table">
+        
+        
+
+
+
         <div className='table-header'>
         {props.value}
         <br />
@@ -186,7 +197,7 @@ function Arguments(props) {
         <div className='table-footer'>
         <label className="label">
         <div className="toggle">
-        <input className="toggle-state" type="checkbox" onClick={() => toggleDeleteA(!showDeleteA)} name="check" value="check" />
+        <input className="toggle-state" type="checkbox" onClick={() => toggleDeleteA(!showDeleteA)} name="check" />
         <div className="indicator"></div>
         </div>
         <div className="label-text">Delete</div>
@@ -232,11 +243,25 @@ Set your own Arguments:
       );})}
 
       </div>
+      <div className='table-footer'>
+        <label className="label">
+        <div className="label-text-onoff">ON</div>
+        <div className="toggle">
+        <input className="toggle-state" type="checkbox" onClick={() => toggleEdit(!showEdit)} name="check" />
+        <div className="indicator"></div>
+        </div>
+        <div className="label-text-onoff">OFF</div>
+        <div className="label-text">Edit Mode</div>
+        </label>
+        <br />
+        <br />
+      </div>
       <div >
       
       <input className='btn' type="button" onClick={handleLogout} value="Logout" /><br /><br />
       
       </div>
+      
 </div>
 )}
 
