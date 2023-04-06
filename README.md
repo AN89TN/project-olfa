@@ -8,7 +8,7 @@ For this app was used the MERN stack, MongoDB with Mongoose as a database where 
 
 From this project i learned the react hooks and a bit more how to handle JS, in the end the worst part was to discover the data i prepared was too nested for a good DB handling and i was forced to change it a bit.
 
-For a Look of what it is when deployed: https://onelistforall.herokuapp.com/.
+For a Look of what it is when deployed:[ https://onelistforall.herokuapp.com/](https://olfa.b4a.app/).
 
 
 
